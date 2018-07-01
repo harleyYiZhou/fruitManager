@@ -80,14 +80,14 @@
         <el-form-item label="确认密码">
           <el-input type="password" v-model="addForm.pwd_confirm"></el-input>
         </el-form-item>
-        <el-form-item label="省份" :label-width="formLabelWidth">
-          <el-select size="small" style="" v-model="addForm.province" placeholder="请选择省份" v-on:change="getProv($event)">
+        <el-form-item label="省份" >
+          <el-select size="small" style="" v-model="addForm.province" placeholder="请选择省份" v-on:change="getCity(addForm.province)">
             <el-option v-for="item in provs" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="市区" :label-width="formLabelWidth" v-if="selectProv!=''">
-          <el-select size="small" style="" v-model="addForm.city" placeholder="请选择城市" v-on:change="getCity($event)">
+        <el-form-item label="市区"  v-if="selectProv!=''">
+          <el-select size="small" style="" v-model="addForm.city"  v-on:change="setCity(addForm.city)">
             <el-option v-for="item in citys" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -96,7 +96,7 @@
           <el-input type="text" v-model="addForm.address"></el-input>
         </el-form-item>
         <el-form-item label="连锁店店名">
-          <el-input type="text" v-model="addForm.shopName"></el-input>
+          <el-input type="text" v-model="addForm.shop_name"></el-input>
         </el-form-item>
         <el-form-item label="手机号码">
           <el-input type="text" v-model="addForm.telphone"></el-input>
@@ -165,7 +165,7 @@ export default {
         province: "",
         city: "",
         address: "",
-        shopName: "",
+        shop_name: "",
         telphone: ""
       },
       //上传图片
@@ -173,7 +173,8 @@ export default {
       dialogVisible: false,
       //获取省份城市列表
       provs: zone.province,
-      citys: []
+      citys: [],
+      formLabelWidth: "120px"
     };
   },
   methods: {
@@ -307,6 +308,8 @@ export default {
             let para = Object.assign({}, this.addForm);
             para.pwd = md5(para.pwd);
             para.pwd_confirm = md5(para.pwd_confirm);
+            console.log(para);
+            // return ;
             this.$http.post("/api/admin/seller/add", para).then(function(res) {
               console.log(res);
               if (res.data.code === 200) {
@@ -363,7 +366,7 @@ export default {
       this.dialogImageUrl = file.url;
       // this.dialogVisible = true;
     },
-    //增加连锁店管理员——省份，市区，地址，店名
+    // 增加连锁店管理员——省份，市区，地址，店名
     getCity: function(prov) {
       let tempCity = [];
       this.citys = [];
@@ -376,6 +379,10 @@ export default {
         }
       }
       this.citys = tempCity;
+      console.log(this.citys);
+    },
+    setCity: function(city){
+      this.addForm.city=city;
     }
   },
   mounted() {

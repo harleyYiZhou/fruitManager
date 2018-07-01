@@ -96,7 +96,7 @@ let routes = [
         iconCls: 'fa fa-address-card',
         show: false,
         children:[
-            {path:'/manager/stock',component:Stock,name:'商品列表'}
+            {path:'/stock',component:Stock,name:'商品列表'}
         ]
     },
     {

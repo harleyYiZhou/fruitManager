@@ -107,7 +107,7 @@ export default {
               sessionStorage.setItem("user", '{"id":1,"username":"admin","avatar":"https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png","name":"张某某"}');
               that.$http.post('/api/admin/seller/getSellerInfo').then(function (res2) { 
                 sessionStorage.setItem('admin',JSON.stringify(res2.data.seller));
-                _this.$router.push({ path: "/manager/stock" });
+                _this.$router.push({ path: "/stock" });
               })
             }
             if (res.data.code === 202) {

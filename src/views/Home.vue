@@ -79,6 +79,8 @@
 				collapsed:false,
 				sysUserName: '',
 				sysUserId: '',
+				shopName: '',
+				shopId: 0,
 				form: {
 					name: '',
 					region: '',
@@ -128,12 +130,20 @@
 		},
 		mounted() {
 			var admin = sessionStorage.getItem('admin');
+			// var shop=sessionStorage.getItem('shop');
+			console.log(1);
 			if (admin) {
 				admin = JSON.parse(admin);
 				this.sysUserName = admin.admin[0].admin_name || '';
 				this.sysUserId = admin.admin[0].admin_id || '';
 				console.log(admin);
 			}
+			// if(shop){
+			// 	shop = JSON.parse(shop);
+			// 	this.sysUserName = shop.shop_name;
+			// 	this.sysUserId = shop.id || '';
+			// 	console.log(shop);
+			// }
 
 		}
 	}
